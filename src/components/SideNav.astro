@@ -1,0 +1,40 @@
+---
+import FolderLink from "../components/FolderLink.astro";
+import type { FileClass } from "../models/FileClass";
+import type { Folder } from "../models/Folder";
+const { folders } = Astro.props;
+const safeFolders = folders || [];
+---
+<div class="bg-primary-700 h-full w-64 overflow-x-hidden pt-5">
+    <ul>
+        {folders&&
+            safeFolders.map((item : Folder) => (
+            <li class="flex flex-col ml-10 space-x-2 p-2">
+                <FolderLink element={item}/>
+                <ul class="flex flex-col">
+                    {
+                        item.subFolders?.map((subItem: Folder) => (
+                        <li class="flex text-primary-300 space-x-2 ">
+                        └&nbsp;&nbsp;<FolderLink element={subItem}/>
+                        </li>
+                        ))
+                    }
+                    {
+                        item.files?.map((subItem : FileClass) => (
+                        <li class="flex text-primary-300 space-x-2 ">
+                        └&nbsp;&nbsp;<FolderLink element={subItem}/>
+                        </li>
+                        ))
+                    }
+                </ul>
+            </li>
+            ))
+        }
+        {
+            !folders&&
+            <li class="flex flex-col ml-10 space-x-2 p-2">
+                <p class="text-primary-300">No folders found</p>
+            </li>
+        }
+    </ul>
+</div>

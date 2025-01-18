@@ -1,3 +1,9 @@
+---
+import Header from '../components/Header.astro'
+import SideNav from '../components/SideNav.astro'
+
+---
+
 <!doctype html>
 <html lang="en">
 	<head>
@@ -7,16 +13,11 @@
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro Basics</title>
 	</head>
-	<body>
-		<slot />
+	<body class="font-sans antialiased h-screen text-gray-900 bg-primary-500">
+		<Header/>
+		<slot/>
+		
 	</body>
 </html>
 
-<style>
-	html,
-	body {
-		margin: 0;
-		width: 100%;
-		height: 100%;
-	}
-</style>
+
