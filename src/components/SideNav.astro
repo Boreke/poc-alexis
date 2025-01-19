@@ -32,9 +32,9 @@ import { findFolderByKey } from "../utils/helper";
 const folderPassthrough = document.getElementById('folderPassthrough') as HTMLDivElement||document.createElement('div').classList.add('hidden');
 const safeFolders = JSON.parse(folderPassthrough.innerHTML) as Array<Folder>;
 
-document.querySelectorAll('p[aria-label]').forEach(span => {
+document.querySelectorAll('button[aria-label]').forEach(button => {
     
-    span.addEventListener('click', (event) => {
+    button.addEventListener('click', (event) => {
         const target = event.target as HTMLElement;
         let folder =findFolderByKey(safeFolders,target?.getAttribute('aria-label'));
         
