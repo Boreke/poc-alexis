@@ -11,7 +11,7 @@ const safeFolders = folders || [];
             safeFolders.map((item : Folder) => (
             <li class="flex flex-col ml-10 space-x-2 p-2">
                 <FolderLink element={item}/>
-                <ul class="flex flex-col">
+                <ul class={`flex flex-col ${item.key}`}>
                     {
                         item.subFolders?.map((subItem: Folder) => (
                         <li class="flex text-primary-300 space-x-2 ">
