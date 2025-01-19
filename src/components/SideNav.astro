@@ -1,40 +1,54 @@
 ---
-import FolderLink from "../components/FolderLink.astro";
-import type { FileClass } from "../models/FileClass";
 import type { Folder } from "../models/Folder";
 const { folders } = Astro.props;
 const safeFolders = folders || [];
 ---
 <div class="bg-primary-700 h-full w-64 overflow-x-hidden pt-5">
-    <ul>
-        {folders&&
-            safeFolders.map((item : Folder) => (
-            <li class="flex flex-col ml-10 space-x-2 p-2">
-                <FolderLink element={item}/>
-                <ul class={`flex flex-col ${item.key}`}>
-                    {
-                        item.subFolders?.map((subItem: Folder) => (
-                        <li class="flex text-primary-300 space-x-2 ">
-                        └&nbsp;&nbsp;<FolderLink element={subItem}/>
-                        </li>
-                        ))
-                    }
-                    {
-                        item.files?.map((subItem : FileClass) => (
-                        <li class="flex text-primary-300 space-x-2 ">
-                        └&nbsp;&nbsp;<FolderLink element={subItem}/>
-                        </li>
-                        ))
-                    }
-                </ul>
-            </li>
-            ))
-        }
-        {
-            !folders&&
+    {folders&&
+        safeFolders.map((item : Folder,index: number) => (
+        <ul class="ml-5" set:html={'<li class="flex flex-col " >'+item.generateFolderHTML()+'</li>'}>
+        </ul>
+        ))
+    }
+    {
+        !folders&&
+        <ul>
             <li class="flex flex-col ml-10 space-x-2 p-2">
                 <p class="text-primary-300">No folders found</p>
             </li>
-        }
-    </ul>
+        </ul>
+    }
+    
 </div>
+<div id="folderPassthrough" class="hidden">
+    {safeFolders?JSON.stringify(safeFolders):''
+    }
+
+</div>
+<script>
+import { Folder } from "../models/Folder";
+import { findFolderByKey } from "../utils/helper";
+
+const folderPassthrough = document.getElementById('folderPassthrough') as HTMLDivElement||document.createElement('div').classList.add('hidden');
+const safeFolders = JSON.parse(folderPassthrough.innerHTML) as Array<Folder>;
+
+document.querySelectorAll('p[aria-label]').forEach(span => {
+    
+    span.addEventListener('click', (event) => {
+        const target = event.target as HTMLElement;
+        let folder =findFolderByKey(safeFolders,target?.getAttribute('aria-label'));
+        
+        if(target){
+            if (target?.getAttribute('aria-label') === folder.key) {
+                const childrenLists=target.parentNode?.parentElement?.querySelectorAll('ul') as NodeListOf<HTMLUListElement>;
+                if(childrenLists.length>0){
+                    childrenLists.forEach((list)=>{
+                        list.classList.toggle('hidden');
+                    });
+                }
+            }
+        }
+
+    });
+});
+</script>
