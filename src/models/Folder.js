@@ -50,7 +50,7 @@ export class Folder {
             </ul>` : ''}
             
             ${filesHTML?.length ? `<ul class="flex flex-col ml-2">
-                ${filesHTML.map(fileHTML => `<li class="flex flex-col ml-4 space-x-2">${fileHTML}</li>`).join('')}
+                ${filesHTML.map(fileHTML => `<li class="flex flex-col ${this.key.length>2?'ml-4':''} space-x-2">${fileHTML}</li>`).join('')}
             </ul>` : ''}
         `;
     }
