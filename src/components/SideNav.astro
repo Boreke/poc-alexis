@@ -42,21 +42,20 @@ document.querySelectorAll('button[aria-label]').forEach(button => {
         
         if(target){
             if (target?.getAttribute('aria-label') === folder.key) {
-                const childrenLists=target.parentNode?.parentElement?.querySelectorAll('ul') as NodeListOf<HTMLUListElement>;
+                const childrenLists = Array.from(target.parentNode?.parentElement?.children || []).filter(child => child.tagName === 'UL' && child.parentElement === target.parentNode?.parentElement) as HTMLUListElement[];
                 if(childrenLists.length>0){
-                    childrenLists.forEach(async (list) => {
+                    childrenLists.forEach(async (list) => {                        
                         if(list.classList.contains('hidden')){
                             list.classList.toggle('slide-in-from-top');
                             list.classList.toggle('slide-out-to-top');
+                            await delay(200)
+                            list.classList.replace('hidden','flex');
                         }else{
                             list.classList.toggle('slide-out-to-top');
                             list.classList.toggle('slide-in-from-top');
+                            await delay(200);
+                            list.classList.replace('flex','hidden');
                         }
-                        
-                        list.classList.toggle('hidden');
-                        
-
-
                     });
                 }
             }

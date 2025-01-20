@@ -45,11 +45,11 @@ export class Folder {
                 </button>
             </div>
 
-            ${subFoldersHTML?.length ? `<ul class="flex flex-col ml-2 slide-in-from-top">
+            ${subFoldersHTML?.length ? `<ul class="flex-col ml-2 hidden slide-out-to-top">
             ${subFoldersHTML.map(subFolderHTML => `<li class="flex flex-col space-x-2">${subFolderHTML}</li>`).join('')}
             </ul>` : ''}
             
-            ${filesHTML?.length ? `<ul class="flex flex-col ml-2 slide-in-from-top">
+            ${filesHTML?.length ? `<ul class="flex-col ml-2 hidden slide-out-to-top">
                 ${filesHTML.map(fileHTML => `<li class="flex flex-col ${this.key.length>2?'ml-4':''} space-x-2">${fileHTML}</li>`).join('')}
             </ul>` : ''}
         `;
