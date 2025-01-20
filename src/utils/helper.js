@@ -9,12 +9,13 @@ export function findFolderByKey(folders, key) {
         if (folder.key === key) {
             return folder;
         }
-        if (folder.subFolders) {
-            const found = findFolderByKey(folder.subFolders, key);
+        if (folder.subFolders || folder.files) {
+            const found = findFolderByKey(folder.subFolders, key)||findFolderByKey(folder.files, key);
             if (found) {
                 return found;
             }
         }
+
     }
     return null;
 }

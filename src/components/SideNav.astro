@@ -38,11 +38,11 @@ document.querySelectorAll('button[aria-label]').forEach(button => {
     
     button.addEventListener('click', (event) => {
         const target = event.target as HTMLElement;
-        let folder =findFolderByKey(safeFolders,target?.getAttribute('aria-label'));
-        
+        let folder =findFolderByKey(safeFolders,target?.getAttribute('aria-label'));        
         if(target){
             if (target?.getAttribute('aria-label') === folder.key) {
                 const childrenLists = Array.from(target.parentNode?.parentElement?.children || []).filter(child => child.tagName === 'UL' && child.parentElement === target.parentNode?.parentElement) as HTMLUListElement[];
+                
                 if(childrenLists.length>0){
                     childrenLists.forEach(async (list) => {                        
                         if(list.classList.contains('hidden')){
