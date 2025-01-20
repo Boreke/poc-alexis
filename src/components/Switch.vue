@@ -3,12 +3,13 @@
     <Switch
       v-model="isDark"
       :class="isDark ? 'bg-blue-900' : 'bg-blue-600'"
-      class="relative inline-flex h-[24px] w-[40px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
+      name="switch"
+      class="relative inline-flex h-[30px] w-[50px] shrink-0 cursor-pointer rounded-full border-2 border-transparent transition-colors duration-200 ease-in-out focus:outline-none focus-visible:ring-2 focus-visible:ring-white/75"
     >
       <span
         aria-hidden="true"
-        :class="isDark ? 'translate-x-4' : 'translate-x-0'"
-        class="pointer-events-none h-[20px] w-[20px] flex justify-center items-center transform rounded-full bg-white ring-0 transition duration-200 ease-in-out"
+        :class="isDark ? 'translate-x-5' : 'translate-x-0'"
+        class="pointer-events-none h-[26px] w-[26px] flex justify-center items-center transform rounded-full bg-white ring-0 transition duration-200 ease-in-out"
       >
       <svg v-if="!isDark" xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="currentColor" class="size-4">
         <path stroke-linecap="round" stroke-linejoin="round" d="M12 3v2.25m6.364.386-1.591 1.591M21 12h-2.25m-.386 6.364-1.591-1.591M12 18.75V21m-4.773-4.227-1.591 1.591M5.25 12H3m4.227-4.773L5.636 5.636M15.75 12a3.75 3.75 0 1 1-7.5 0 3.75 3.75 0 0 1 7.5 0Z" />
