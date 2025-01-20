@@ -31,7 +31,9 @@ import { findFolderByKey } from "../utils/helper";
 
 const folderPassthrough = document.getElementById('folderPassthrough') as HTMLDivElement||document.createElement('div').classList.add('hidden');
 const safeFolders = JSON.parse(folderPassthrough.innerHTML) as Array<Folder>;
-
+function delay(ms: number) {
+    return new Promise(resolve => setTimeout(resolve, ms));
+}
 document.querySelectorAll('button[aria-label]').forEach(button => {
     
     button.addEventListener('click', (event) => {
@@ -42,8 +44,19 @@ document.querySelectorAll('button[aria-label]').forEach(button => {
             if (target?.getAttribute('aria-label') === folder.key) {
                 const childrenLists=target.parentNode?.parentElement?.querySelectorAll('ul') as NodeListOf<HTMLUListElement>;
                 if(childrenLists.length>0){
-                    childrenLists.forEach((list)=>{
+                    childrenLists.forEach(async (list) => {
+                        if(list.classList.contains('hidden')){
+                            list.classList.toggle('slide-in-from-top');
+                            list.classList.toggle('slide-out-to-top');
+                        }else{
+                            list.classList.toggle('slide-out-to-top');
+                            list.classList.toggle('slide-in-from-top');
+                        }
+                        
                         list.classList.toggle('hidden');
+                        
+
+
                     });
                 }
             }
