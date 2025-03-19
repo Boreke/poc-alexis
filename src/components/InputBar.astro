@@ -1,15 +1,36 @@
 ---
 ---
-<div class="fixed flex items-center border border-primary-300 rounded-full p-2 w-[35%] bottom-[7%] shadow-sm ">
+<div class=" flex items-center border border-primary-300 bg-primary-400 rounded-full p-2 w-[35%] bottom-[7%] shadow-sm ">
     <input 
         type="text"
+        id="promptInput"
         name="promptInput" 
         placeholder="Type your message..." 
         class="flex-1 px-4 py-2 border-none bg-transparent text-primary-200 focus:outline-none"
     />
-    <button name="submitPrompt" class="ml-2 px-2 py-2 bg-primary-100  rounded-full hover:opacity-90">
+    <button name="submitPrompt" id="submitPrompt" class="ml-2 px-2 py-2 bg-primary-100  rounded-full hover:opacity-90">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke-width="1.5" stroke="black" class="size-6">
             <path stroke-linecap="round" stroke-linejoin="round" d="M6 12 3.269 3.125A59.769 59.769 0 0 1 21.485 12 59.768 59.768 0 0 1 3.27 20.875L5.999 12Zm0 0h7.5" />
           </svg>
     </button>
 </div>
+<script>
+    import {PromptModel} from '../models/PromptModel.js';
+    import { postData,  } from '../scripts/answerService';
+    const input = document.getElementById('promptInput') as HTMLInputElement;
+    const button = document.getElementById('submitPrompt');
+    if(!input || !button) {
+        throw new Error('Input or button not found');
+    }else{
+        button.addEventListener('click', async () => {
+            if(input.value){
+                console.log(input.value);
+                let prompt = new PromptModel("45c6f122-4444-4444-4444-f123456789ab","user_message",input.value);
+                await postData("http://109.14.8.59:8888/api/messages",prompt.toJSON()).then((data) => {
+                    console.log(data);
+                });
+                input.value = '';
+            }
+        });
+    }
+</script>

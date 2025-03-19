@@ -14,8 +14,11 @@ import Header from '../components/Header.astro'
 		<meta name="generator" content={Astro.generator} />
 		<title>Astro Basics</title>
 	</head>
-	<body class="font-sans antialiased h-screen text-gray-900 bg-primary-500">
-		<Header/>
+	<body class="font-sans antialiased h-screen text-gray-900 overflow-hidden bg-primary-500">
+		<div class="sticky top-0 z-50">
+
+			<Header/>
+		</div>
 		<slot/>
 		
 	</body>
